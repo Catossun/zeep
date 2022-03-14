@@ -29,6 +29,8 @@ private:
 
     char recursiveDecompress(Node *root, string &src, size_t &offset);
 
+    void insertNodeToTree(Node **rootPtr, string &position, char &value);
+
 public:
 
     Huffman();

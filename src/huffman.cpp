@@ -123,10 +123,47 @@ char Huffman::recursiveDecompress(Node *root, string &src, size_t &offset) {
 
 }
 
-void Huffman::readTree(basic_iostream<char> stream) {
-    // TODO: Load Huffman tree from a stream.
+void Huffman::readTree(basic_istream<char> &stream) {
+    char value;
+    char separator;
+    string charCode;
+    // Read data from stream with "<value>:<char_code>\n" format
+    while (stream.get(value) &&
+           stream.get(separator) &&
+           stream >> charCode) {
+        // Insert value into the tree
+        insertNodeToTree(&this->tree, charCode, value);
+        // Remove the line separator at the end
+        stream.get(separator);
+    }
 }
 
-void Huffman::writeTree(basic_iostream<char> stream) {
-    // TODO: Write Huffman tree to a stream.
+void Huffman::insertNodeToTree(Node **rootPtr, string &position, char &value) {
+    // Create a Node for the pointer of root
+    if (*rootPtr == nullptr) *rootPtr = new Node();
+    // Save the value, if the position string is empty
+    if (position.empty()) {
+        (*rootPtr)->value = value;
+        return;
+    }
+    // Use the first character to decide the next direction
+    if (position.at(0) == '0') {
+        // Remove the first character and move left
+        position = position.substr(1, position.size() - 1);
+        insertNodeToTree(&(*rootPtr)->left, position, value);
+    } else {
+        // Remove the first character and move right
+        position = position.substr(1, position.size() - 1);
+        insertNodeToTree(&(*rootPtr)->right, position, value);
+    }
+}
+
+void Huffman::writeTree(basic_ostream<char> &stream) {
+    // Build a char table from the current Huffman tree
+    map<char, string> charTable = buildCharTable(this->tree);
+    // Write the char table into a stream
+    for (pair<char, string> p: charTable) {
+        stream << p.first << ":" << p.second << endl;
+    }
+    stream.flush();
 }
