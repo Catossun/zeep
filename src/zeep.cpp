@@ -6,7 +6,7 @@
 #include <compressor.h>
 
 #define THROW_ILLEGAL_ARGUMENTS_ERROR \
-    printf("Illegal arguments!");     \
+    printf("ERROR: Illegal arguments!");     \
     exit(1);
 
 using namespace std;
