@@ -30,7 +30,23 @@ void writeToFile(const string &path, const string &content) {
     ofs.close();
 }
 
+void printHelpMessage() {
+    printf(R"(Normal Options:
+    -h, --help                  Show this help message.
+    -c, --compress <type>       Compress the input file.
+    -d, --decompress <type>     Decompress the input file.
+
+Compress type:
+    --huffman <tree_file>       Use Huffman Coding.
+    --huffman-adaptive          User Adaptive Huffman Coding.
+)");
+}
+
 int main(int argsCount, char **args) {
+    if (argsCount == 2 && "-h" == string(args[1])) {
+        printHelpMessage();
+        exit(0);
+    }
     if (argsCount < 5) {
         THROW_ILLEGAL_ARGUMENTS_ERROR
     }
