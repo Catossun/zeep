@@ -12,11 +12,11 @@ $ zeep [options] <input_file> <output_file>
 ```text
 Normal Options:
     -h, --help                  Show this help message.
-    -c, --compress <type>       Compress the input file. (Default)
+    -c, --compress <type>       Compress the input file.
     -d, --decompress <type>     Decompress the input file.
 
 Compress type:
-    --huffman <tree_file>       Use Huffman Coding. (Default)
+    --huffman <tree_file>       Use Huffman Coding.
     --huffman-adaptive          User Adaptive Huffman Coding.
 ```
 
@@ -24,7 +24,7 @@ Compress type:
 
 ```shell
 # Compress by Huffman Coding and save Huffman tree to a file
-$ zeep --huffman <tree_file> <input_file> <output_file>
+$ zeep -c --huffman <tree_file> <input_file> <output_file>
 ```
 
 ### Decompress File
