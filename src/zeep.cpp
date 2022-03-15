@@ -82,11 +82,20 @@ int main(int argsCount, char **args) {
             ofs.close();
         }
         writeToFile(args[isAdaptiveHuffman ? 4 : 5], compressedData);
-
+        // Print info
+        printf("Input file size: %d bytes\n", src.size());
+        printf("Output file size: %f bytes\n", compressedData.size() / 8.0);
+        printf(
+                "Compress rate: %f%%\n",
+                compressedData.size() / 8.0 * 100.0 / src.size()
+        );
     } else {
         string src = readFromFile(args[isAdaptiveHuffman ? 3 : 4]);
         string decompressedData = cmp->decompress(src);
         writeToFile(args[isAdaptiveHuffman ? 4 : 5], decompressedData);
+        // Print info
+        printf("Input file size: %f bytes\n", src.size() / 8.0);
+        printf("Output file size: %d bytes\n", decompressedData.size());
     }
     delete cmp;
     return 0;
