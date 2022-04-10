@@ -17,6 +17,7 @@ Normal Options:
 
 Compress type:
     --huffman <tree_file>       Use Huffman Coding.
+    --arithmetic <prob_file>    Use Arithmetic Coding.
 ```
 
 ### Compress File
