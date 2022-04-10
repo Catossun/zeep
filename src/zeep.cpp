@@ -38,7 +38,6 @@ void printHelpMessage() {
 
 Compress type:
     --huffman <tree_file>       Use Huffman Coding.
-    --huffman-adaptive          User Adaptive Huffman Coding.
 )");
 }
 
@@ -51,7 +50,6 @@ int main(int argsCount, char **args) {
         THROW_ILLEGAL_ARGUMENTS_ERROR
     }
     bool isDoCompress = false;
-    bool isAdaptiveHuffman = false;
     Compressor *cmp = nullptr;
     if ("-c" == string(args[1])) {
         isDoCompress = true;
@@ -59,7 +57,6 @@ int main(int argsCount, char **args) {
         isDoCompress = false;
     }
     if ("--huffman" == string(args[2])) {
-        isAdaptiveHuffman = false;
         auto *hf = new Huffman();
         string treeFile = string(args[3]);
         if (!isDoCompress) {
@@ -68,20 +65,15 @@ int main(int argsCount, char **args) {
             ifs.close();
         }
         cmp = hf;
-    } else if ("--huffman-adaptive" == string(args[2])) {
-        isAdaptiveHuffman = true;
-        // TODO: Create an instance of HuffmanAdaptive and assign it to cmp.
     }
     if (isDoCompress) {
-        string src = readFromFile(args[isAdaptiveHuffman ? 3 : 4]);
+        string src = readFromFile(args[4]);
         string compressedData = cmp->compress(src);
-        if (!isAdaptiveHuffman) {
-            auto *hf = (Huffman *) cmp;
-            ofstream ofs(args[3]);
-            hf->writeTree(ofs);
-            ofs.close();
-        }
-        writeToFile(args[isAdaptiveHuffman ? 4 : 5], compressedData);
+        auto *hf = (Huffman *) cmp;
+        ofstream ofs(args[3]);
+        hf->writeTree(ofs);
+        ofs.close();
+        writeToFile(args[5], compressedData);
         // Print info
         printf("Input file size: %d bytes\n", src.size());
         printf("Output file size: %f bytes\n", compressedData.size() / 8.0);
@@ -90,9 +82,9 @@ int main(int argsCount, char **args) {
                 compressedData.size() / 8.0 * 100.0 / src.size()
         );
     } else {
-        string src = readFromFile(args[isAdaptiveHuffman ? 3 : 4]);
+        string src = readFromFile(args[4]);
         string decompressedData = cmp->decompress(src);
-        writeToFile(args[isAdaptiveHuffman ? 4 : 5], decompressedData);
+        writeToFile(args[5], decompressedData);
         // Print info
         printf("Input file size: %f bytes\n", src.size() / 8.0);
         printf("Output file size: %d bytes\n", decompressedData.size());

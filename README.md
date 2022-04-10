@@ -17,7 +17,6 @@ Normal Options:
 
 Compress type:
     --huffman <tree_file>       Use Huffman Coding.
-    --huffman-adaptive          User Adaptive Huffman Coding.
 ```
 
 ### Compress File
