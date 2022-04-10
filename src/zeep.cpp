@@ -63,6 +63,8 @@ int main(int argsCount, char **args) {
         isDoCompress = true;
     } else if ("-d" == selectedMode) {
         isDoCompress = false;
+    } else {
+        THROW_ILLEGAL_ARGUMENTS_ERROR
     }
     auto selectedCompressorType = string(args[2]);
     auto compressorRequiredFilePath = string(args[3]);
@@ -84,6 +86,8 @@ int main(int argsCount, char **args) {
             ifs.close();
         }
         cmp = arith;
+    } else {
+        THROW_ILLEGAL_ARGUMENTS_ERROR
     }
     string sourceFileContent = readFromFile(args[4]);
     auto destinationFilePath = string(args[5]);
