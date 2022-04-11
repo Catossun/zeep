@@ -1,8 +1,23 @@
 #include "arithmetic.h"
+#include <sstream>
+#include <iomanip>
 
 string Arithmetic::compress(string &src) {
     probabilityTable = createProbabilityTable(src);
-    return std::string();
+    auto mappedProbabilityTable = probabilityTable;
+    // Start compress
+    for (size_t i = 0; i < src.size() - 1; ++i) {
+        char c = src[i];
+        pair<double, double> cRange = mappedProbabilityTable[c];
+        mapTable(mappedProbabilityTable, cRange);
+    }
+    // Take the probability of the last byte
+    pair<double, double> lastProbRange = mappedProbabilityTable[src[src.size() - 1]];
+    double resultTag = (lastProbRange.first + lastProbRange.second) / 2;
+    // Convert double to string
+    stringstream ss;
+    ss << fixed << setprecision(128) << resultTag;
+    return ss.str();
 }
 
 map<char, pair<double, double>> Arithmetic::createProbabilityTable(string &src) {
