@@ -8,7 +8,16 @@ string Arithmetic::compress(string &src) {
 map<char, pair<double, double>> Arithmetic::createProbabilityTable(string &src) {
     auto probTable = map<char, pair<double, double>>();
     map<char, double> prob = calcProbability(src);
-    // TODO: Create probability table.
+    double lastEndValue = 0.0;
+    // Start creating table
+    for (pair<const char, double> &item: prob) {
+        // Create a probability range
+        double endValue = lastEndValue + item.second;
+        pair<double, double> probRange(lastEndValue, endValue);
+        // Save into the table
+        probTable[item.first] = probRange;
+        lastEndValue = endValue;
+    }
     return probTable;
 }
 
