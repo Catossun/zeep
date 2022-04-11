@@ -35,6 +35,22 @@ map<char, double> Arithmetic::calcProbability(string &src) {
     return prob;
 }
 
+void Arithmetic::mapTable(map<char, pair<double, double>> &table, pair<double, double> range) {
+    double lastEndValue = range.first;
+    double probRatio = (range.second - range.first) / (probTableEnd - probTableStart);
+    // Start creating table
+    for (pair<const char, pair<double, double>> &item: table) {
+        double newEndValue = lastEndValue + (item.second.second - item.second.first) * probRatio;
+        // Create a probability range
+        pair<double, double> newProbRange(lastEndValue, newEndValue);
+        // Save into the table
+        item.second = newProbRange;
+        lastEndValue = newEndValue;
+    }
+    probTableStart = range.first;
+    probTableEnd = range.second;
+}
+
 string Arithmetic::decompress(string &src) {
     return std::string();
 }
