@@ -68,7 +68,37 @@ void Arithmetic::mapTable(map<char, pair<double, double>> &table, pair<double, d
 }
 
 string Arithmetic::decompress(string &src) {
-    return std::string();
+    stringstream ss;
+    ss << src;
+    size_t srcSize;
+    ss >> srcSize;
+    // Remove separator
+    ss.get();
+    // Convert string to double
+    double tag;
+    ss >> tag;
+    stringstream result;
+    auto mappedProbabilityTable = probabilityTable;
+    for (size_t i = 0; i < srcSize; ++i) {
+        pair<char, pair<double, double>> decodedValue = findRange(mappedProbabilityTable, tag);
+        // Save the value
+        result << decodedValue.first;
+        // Remap the probability table
+        pair<double, double> &newRange = decodedValue.second;
+        mapTable(mappedProbabilityTable, newRange);
+    }
+    return result.str();
+}
+
+pair<char, pair<double, double>> Arithmetic::findRange(map<char, pair<double, double>> &table, double tag) {
+    for (auto &item:table) {
+        if (item.second.first <= tag && tag < item.second.second) {
+            return item;
+        }
+    }
+    // The range not found, exit the program
+    cout << "Error!" << endl;
+    exit(2);
 }
 
 void Arithmetic::readProbability(basic_istream<char> &stream) {

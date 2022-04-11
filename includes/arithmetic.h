@@ -19,6 +19,8 @@ private:
 
     void mapTable(map<char, pair<double, double>> &table, pair<double, double> range);
 
+    pair<char, pair<double, double>> findRange(map<char, pair<double, double>> &table, double tag);
+
 public:
 
     string compress(string &src) override;
