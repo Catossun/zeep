@@ -17,7 +17,7 @@ string Arithmetic::compress(string &src) {
     stringstream result;
     result << src.size() << ',';
     // Convert double to string
-    result << fixed << setprecision(128) << resultTag;
+    result << fixed << setprecision(32) << resultTag;
     return result.str();
 }
 
