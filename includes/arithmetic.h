@@ -3,6 +3,7 @@
 #include "compressor.h"
 
 #include <map>
+#include <iostream>
 
 class Arithmetic : public Compressor {
 private:
@@ -23,4 +24,8 @@ public:
     string compress(string &src) override;
 
     string decompress(string &src) override;
+
+    void readProbability(basic_istream<char> &stream);
+
+    void writeProbability(basic_ostream<char> &stream);
 };

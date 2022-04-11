@@ -69,3 +69,32 @@ void Arithmetic::mapTable(map<char, pair<double, double>> &table, pair<double, d
 string Arithmetic::decompress(string &src) {
     return std::string();
 }
+
+void Arithmetic::readProbability(basic_istream<char> &stream) {
+    char value;
+    char separator;
+    double rangeStart;
+    double rangeEnd;
+    while (stream.get(value) &&
+           stream.get(separator) &&
+           stream >> rangeStart &&
+           stream.get(separator) &&
+           stream >> rangeEnd) {
+        auto range = pair<double, double>(rangeStart, rangeEnd);
+        probabilityTable[value] = range;
+        stream.get();
+    }
+}
+
+void Arithmetic::writeProbability(basic_ostream<char> &stream) {
+    for (auto item:probabilityTable) {
+        stream << item.first;
+        stream << ':';
+        stream << fixed;
+        stream << setprecision(32);
+        stream << item.second.first;
+        stream << ',';
+        stream << item.second.second;
+        stream << endl;
+    }
+}

@@ -82,7 +82,7 @@ int main(int argsCount, char **args) {
         auto *arith = new Arithmetic();
         if (!isDoCompress) {
             ifstream ifs(compressorRequiredFilePath);
-            // TODO: Set probabilityTable to compressor.
+            arith->readProbability(ifs);
             ifs.close();
         }
         cmp = arith;
@@ -102,7 +102,7 @@ int main(int argsCount, char **args) {
         } else if (compressType == CompressorType::ARITHMETIC) {
             auto *arith = (Arithmetic *) cmp;
             ofstream ofs(args[3]);
-            // TODO: Save probabilityTable.
+            arith->writeProbability(ofs);
             ofs.close();
         }
         writeToFile(destinationFilePath, compressedData);
