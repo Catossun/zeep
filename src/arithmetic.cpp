@@ -14,10 +14,11 @@ string Arithmetic::compress(string &src) {
     // Take the probability of the last byte
     pair<double, double> lastProbRange = mappedProbabilityTable[src[src.size() - 1]];
     double resultTag = (lastProbRange.first + lastProbRange.second) / 2;
+    stringstream result;
+    result << src.size() << ',';
     // Convert double to string
-    stringstream ss;
-    ss << fixed << setprecision(128) << resultTag;
-    return ss.str();
+    result << fixed << setprecision(128) << resultTag;
+    return result.str();
 }
 
 map<char, pair<double, double>> Arithmetic::createProbabilityTable(string &src) {
