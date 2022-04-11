@@ -46,7 +46,9 @@ map<char, double> Arithmetic::calcProbability(string &src) {
     }
     // Change to probability
     for (pair<const char, double> &item : prob) {
+        item.second += probTableStart;
         item.second /= totalBytes;
+        item.second *= (probTableEnd - probTableStart);
     }
     return prob;
 }
