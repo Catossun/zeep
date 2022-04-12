@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="zeep-huffman-decompress" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-d --huffman ../TestData/huffman_tree.txt ../TestData/compress_huffman.zph ../TestData/decompress_huffman.txt" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="zeep" TARGET_NAME="zeep" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="zeep" RUN_TARGET_NAME="zeep">
+    <method v="2">
+      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>
